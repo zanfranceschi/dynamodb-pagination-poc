@@ -1,0 +1,59 @@
+plugins {
+    id("com.github.johnrengelman.shadow") version "6.1.0"
+    id("io.micronaut.application") version "1.4.2"
+}
+
+version = "0.1"
+group = "dynamodb.pagination.poc"
+
+repositories {
+    mavenCentral()
+}
+
+micronaut {
+    testRuntime("junit5")
+    processing {
+        incremental(true)
+        annotations("dynamodb.pagination.poc.*")
+    }
+}
+
+dependencies {
+    annotationProcessor("org.projectlombok:lombok")
+    implementation("javax.annotation:javax.annotation-api")
+    compileOnly("org.projectlombok:lombok")
+    runtimeOnly("ch.qos.logback:logback-classic")
+
+    annotationProcessor("info.picocli:picocli-codegen")
+    implementation("info.picocli:picocli")
+    implementation("io.micronaut:micronaut-runtime")
+    implementation("io.micronaut.picocli:micronaut-picocli")
+    implementation("io.micronaut:micronaut-validation")
+    runtimeOnly("ch.qos.logback:logback-classic")
+    testImplementation("io.micronaut:micronaut-http-client")
+
+    //implementation plataform('com.amazonaws:aws-java-sdk-bom:1.11.1005')
+    implementation('com.amazonaws:aws-java-sdk-dynamodb:1.11.1005')
+
+    implementation platform('software.amazon.awssdk:bom:2.16.47')
+    implementation('software.amazon.awssdk:dynamodb-enhanced')
+    implementation('software.amazon.awssdk:dynamodb')
+
+    implementation("io.micronaut.sql:micronaut-vertx-mysql-client")
+
+
+    implementation("com.fasterxml.jackson.core:jackson-core")
+    implementation("com.fasterxml.jackson.core:jackson-annotations")
+}
+
+
+application {
+    mainClass.set("dynamodb.pagination.poc.DynamodbPaginationPocCommand")
+}
+java {
+    sourceCompatibility = JavaVersion.toVersion("1.8")
+    targetCompatibility = JavaVersion.toVersion("1.8")
+}
+
+
+

@@ -1,0 +1,13 @@
+micronaut:
+  application:
+    name: dynamodbPaginationPoc
+
+vertx:
+  mysql:
+    client:
+      port: 3306
+      host: localhost
+      database: db
+      user: root
+      password: 123
+      maxSize: 5
